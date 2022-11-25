@@ -10,6 +10,7 @@ cur.execute('''CREATE TABLE usuario
 # Insert a row of data
 cur.execute("INSERT INTO usuario VALUES ('mensaje_de_prueba','1','firmafirma')")
 
+
 # Save (commit) the changes
 con.commit()
 
