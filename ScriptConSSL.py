@@ -14,10 +14,10 @@ def worker(*args):
     mensajeRecibido = conn.recv(4096).decode()
     print(mensajeRecibido)
     ##Aquí va la comprobacion
-    # if comprobarEnServidor(mensajeRecibido)=="Comprobación exitosa":
-    #     conn.send(("La comprobación ha sido exitosa, estamos guardando su mensaje").encode())
-    # else: 
-    #     conn.send(("La comprobación ha sido errónea. Inténtelo de nuevo").encode())
+    if comprobarEnServidor(mensajeRecibido)=="Comprobación exitosa":
+        conn.send(("Peticion OK").encode())
+    else: 
+        conn.send(("Peticion INCORRECTA").encode())
 
     print("Desconectado el cliente", addr)
     conn.close()
