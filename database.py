@@ -3,20 +3,28 @@ con = sqlite3.connect('data.db')
 
 cur = con.cursor()
 
-# Create table
-# cur.execute('''CREATE TABLE usuario
-#                (mensaje text, id_empleado integer, firma text)''')
-
-# Insert a row of data
+#Create table
+cur.execute('''CREATE TABLE usuario
+                (id_empleado integer, clave_publica text)''')
+cur.execute('''CREATE TABLE mensajes
+                (id_empleado integer, camas integer, mesas integer, sillas integer, sillones integer, timestamp datetime, verificacion text)''')
+#Insert a row of data
 #cur.execute("INSERT INTO usuario VALUES ('mensaje_de_prueba2','2','firmafirma2')")
 
-############################Por si queremos añadir mucha gente a la vez
-# data = [
-#     ("Monty Python Live at the Hollywood Bowl", 1982, 7.9),
-#     ("Monty Python's The Meaning of Life", 1983, 7.5),
-#     ("Monty Python's Life of Brian", 1979, 8.0),
-# ]
-# cur.executemany("INSERT INTO movie VALUES(?, ?, ?)", data)
+data = [
+    (1,"AAAAB3NzaC1yc2EAAAADAQABAAABgQDuJOASoAgAkrnt3a8cSC7bwBMWN36cfMc4CHZvhYumkHpCtUCuUid1fcGi0iiwcTZcrzhHvWAWe/JxFy+WHwBdWUJ4niirsznYB91T8IKQV/Ir0LE6ZcwUH/UHXQCOCF2bQGR+KKR2y0cTXBEHmtrS4hTuldmq9dG2fx0W1EL6AHwMtTf5/sK5Sx07VDRvVpPEObK+Q4UfVfNzcQpuISN+BevUMGBIMV+uvuw3r34k0ZfvCteAUvzIBMsL5E5xA1uYVjatEo9cb9XpaXvtYa/pWpSiVLamTn4ifft0pyS4dbuiLxoT27ErkIzfo7aVcg7/jCIWB+mN47+KLgyJINMwLOTcTUeACvYQ5QxBrM19MqqKtvN369gqmfWaLODrL/kpq31+/lU9wtKXqKp9fisuNE+Z1lcpDtM2ddjoIePEtPjiKaN59K0tOUCeKUBCr8b4dDempckuNxixuF9Fpq1sKrrXyayaqq0zj8EXsptgXA2RMiclLDcDZylVaZhEyEc"),
+    (2,"BAAAB3NzaC1yc2EAAAADAQABAAABgQDuJOASoAgAkrnt3a8cSC7bwBMWN36cfMc4CHZvhYumkHpCtUCuUid1fcGi0iiwcTZcrzhHvWAWe/JxFy+WHwBdWUJ4niirsznYB91T8IKQV/Ir0LE6ZcwUH/UHXQCOCF2bQGR+KKR2y0cTXBEHmtrS4hTuldmq9dG2fx0W1EL6AHwMtTf5/sK5Sx07VDRvVpPEObK+Q4UfVfNzcQpuISN+BevUMGBIMV+uvuw3r34k0ZfvCteAUvzIBMsL5E5xA1uYVjatEo9cb9XpaXvtYa/pWpSiVLamTn4ifft0pyS4dbuiLxoT27ErkIzfo7aVcg7/jCIWB+mN47+KLgyJINMwLOTcTUeACvYQ5QxBrM19MqqKtvN369gqmfWaLODrL/kpq31+/lU9wtKXqKp9fisuNE+Z1lcpDtM2ddjoIePEtPjiKaN59K0tOUCeKUBCr8b4dDempckuNxixuF9Fpq1sKrrXyayaqq0zj8EXsptgXA2RMiclLDcDZylVaZhEyEc"),
+    (3,"CAAAB3NzaC1yc2EAAAADAQABAAABgQDuJOASoAgAkrnt3a8cSC7bwBMWN36cfMc4CHZvhYumkHpCtUCuUid1fcGi0iiwcTZcrzhHvWAWe/JxFy+WHwBdWUJ4niirsznYB91T8IKQV/Ir0LE6ZcwUH/UHXQCOCF2bQGR+KKR2y0cTXBEHmtrS4hTuldmq9dG2fx0W1EL6AHwMtTf5/sK5Sx07VDRvVpPEObK+Q4UfVfNzcQpuISN+BevUMGBIMV+uvuw3r34k0ZfvCteAUvzIBMsL5E5xA1uYVjatEo9cb9XpaXvtYa/pWpSiVLamTn4ifft0pyS4dbuiLxoT27ErkIzfo7aVcg7/jCIWB+mN47+KLgyJINMwLOTcTUeACvYQ5QxBrM19MqqKtvN369gqmfWaLODrL/kpq31+/lU9wtKXqKp9fisuNE+Z1lcpDtM2ddjoIePEtPjiKaN59K0tOUCeKUBCr8b4dDempckuNxixuF9Fpq1sKrrXyayaqq0zj8EXsptgXA2RMiclLDcDZylVaZhEyEc"),
+    (4,"DAAAB3NzaC1yc2EAAAADAQABAAABgQDuJOASoAgAkrnt3a8cSC7bwBMWN36cfMc4CHZvhYumkHpCtUCuUid1fcGi0iiwcTZcrzhHvWAWe/JxFy+WHwBdWUJ4niirsznYB91T8IKQV/Ir0LE6ZcwUH/UHXQCOCF2bQGR+KKR2y0cTXBEHmtrS4hTuldmq9dG2fx0W1EL6AHwMtTf5/sK5Sx07VDRvVpPEObK+Q4UfVfNzcQpuISN+BevUMGBIMV+uvuw3r34k0ZfvCteAUvzIBMsL5E5xA1uYVjatEo9cb9XpaXvtYa/pWpSiVLamTn4ifft0pyS4dbuiLxoT27ErkIzfo7aVcg7/jCIWB+mN47+KLgyJINMwLOTcTUeACvYQ5QxBrM19MqqKtvN369gqmfWaLODrL/kpq31+/lU9wtKXqKp9fisuNE+Z1lcpDtM2ddjoIePEtPjiKaN59K0tOUCeKUBCr8b4dDempckuNxixuF9Fpq1sKrrXyayaqq0zj8EXsptgXA2RMiclLDcDZylVaZhEyEc"),
+    (5,"EAAAB3NzaC1yc2EAAAADAQABAAABgQDuJOASoAgAkrnt3a8cSC7bwBMWN36cfMc4CHZvhYumkHpCtUCuUid1fcGi0iiwcTZcrzhHvWAWe/JxFy+WHwBdWUJ4niirsznYB91T8IKQV/Ir0LE6ZcwUH/UHXQCOCF2bQGR+KKR2y0cTXBEHmtrS4hTuldmq9dG2fx0W1EL6AHwMtTf5/sK5Sx07VDRvVpPEObK+Q4UfVfNzcQpuISN+BevUMGBIMV+uvuw3r34k0ZfvCteAUvzIBMsL5E5xA1uYVjatEo9cb9XpaXvtYa/pWpSiVLamTn4ifft0pyS4dbuiLxoT27ErkIzfo7aVcg7/jCIWB+mN47+KLgyJINMwLOTcTUeACvYQ5QxBrM19MqqKtvN369gqmfWaLODrL/kpq31+/lU9wtKXqKp9fisuNE+Z1lcpDtM2ddjoIePEtPjiKaN59K0tOUCeKUBCr8b4dDempckuNxixuF9Fpq1sKrrXyayaqq0zj8EXsptgXA2RMiclLDcDZylVaZhEyEc"),
+    (6,"FAAAB3NzaC1yc2EAAAADAQABAAABgQDuJOASoAgAkrnt3a8cSC7bwBMWN36cfMc4CHZvhYumkHpCtUCuUid1fcGi0iiwcTZcrzhHvWAWe/JxFy+WHwBdWUJ4niirsznYB91T8IKQV/Ir0LE6ZcwUH/UHXQCOCF2bQGR+KKR2y0cTXBEHmtrS4hTuldmq9dG2fx0W1EL6AHwMtTf5/sK5Sx07VDRvVpPEObK+Q4UfVfNzcQpuISN+BevUMGBIMV+uvuw3r34k0ZfvCteAUvzIBMsL5E5xA1uYVjatEo9cb9XpaXvtYa/pWpSiVLamTn4ifft0pyS4dbuiLxoT27ErkIzfo7aVcg7/jCIWB+mN47+KLgyJINMwLOTcTUeACvYQ5QxBrM19MqqKtvN369gqmfWaLODrL/kpq31+/lU9wtKXqKp9fisuNE+Z1lcpDtM2ddjoIePEtPjiKaN59K0tOUCeKUBCr8b4dDempckuNxixuF9Fpq1sKrrXyayaqq0zj8EXsptgXA2RMiclLDcDZylVaZhEyEc"),
+    (7,"GAAAB3NzaC1yc2EAAAADAQABAAABgQDuJOASoAgAkrnt3a8cSC7bwBMWN36cfMc4CHZvhYumkHpCtUCuUid1fcGi0iiwcTZcrzhHvWAWe/JxFy+WHwBdWUJ4niirsznYB91T8IKQV/Ir0LE6ZcwUH/UHXQCOCF2bQGR+KKR2y0cTXBEHmtrS4hTuldmq9dG2fx0W1EL6AHwMtTf5/sK5Sx07VDRvVpPEObK+Q4UfVfNzcQpuISN+BevUMGBIMV+uvuw3r34k0ZfvCteAUvzIBMsL5E5xA1uYVjatEo9cb9XpaXvtYa/pWpSiVLamTn4ifft0pyS4dbuiLxoT27ErkIzfo7aVcg7/jCIWB+mN47+KLgyJINMwLOTcTUeACvYQ5QxBrM19MqqKtvN369gqmfWaLODrL/kpq31+/lU9wtKXqKp9fisuNE+Z1lcpDtM2ddjoIePEtPjiKaN59K0tOUCeKUBCr8b4dDempckuNxixuF9Fpq1sKrrXyayaqq0zj8EXsptgXA2RMiclLDcDZylVaZhEyEc"),
+    (8,"JAAAB3NzaC1yc2EAAAADAQABAAABgQDuJOASoAgAkrnt3a8cSC7bwBMWN36cfMc4CHZvhYumkHpCtUCuUid1fcGi0iiwcTZcrzhHvWAWe/JxFy+WHwBdWUJ4niirsznYB91T8IKQV/Ir0LE6ZcwUH/UHXQCOCF2bQGR+KKR2y0cTXBEHmtrS4hTuldmq9dG2fx0W1EL6AHwMtTf5/sK5Sx07VDRvVpPEObK+Q4UfVfNzcQpuISN+BevUMGBIMV+uvuw3r34k0ZfvCteAUvzIBMsL5E5xA1uYVjatEo9cb9XpaXvtYa/pWpSiVLamTn4ifft0pyS4dbuiLxoT27ErkIzfo7aVcg7/jCIWB+mN47+KLgyJINMwLOTcTUeACvYQ5QxBrM19MqqKtvN369gqmfWaLODrL/kpq31+/lU9wtKXqKp9fisuNE+Z1lcpDtM2ddjoIePEtPjiKaN59K0tOUCeKUBCr8b4dDempckuNxixuF9Fpq1sKrrXyayaqq0zj8EXsptgXA2RMiclLDcDZylVaZhEyEc"),
+    (9,"KAAAB3NzaC1yc2EAAAADAQABAAABgQDuJOASoAgAkrnt3a8cSC7bwBMWN36cfMc4CHZvhYumkHpCtUCuUid1fcGi0iiwcTZcrzhHvWAWe/JxFy+WHwBdWUJ4niirsznYB91T8IKQV/Ir0LE6ZcwUH/UHXQCOCF2bQGR+KKR2y0cTXBEHmtrS4hTuldmq9dG2fx0W1EL6AHwMtTf5/sK5Sx07VDRvVpPEObK+Q4UfVfNzcQpuISN+BevUMGBIMV+uvuw3r34k0ZfvCteAUvzIBMsL5E5xA1uYVjatEo9cb9XpaXvtYa/pWpSiVLamTn4ifft0pyS4dbuiLxoT27ErkIzfo7aVcg7/jCIWB+mN47+KLgyJINMwLOTcTUeACvYQ5QxBrM19MqqKtvN369gqmfWaLODrL/kpq31+/lU9wtKXqKp9fisuNE+Z1lcpDtM2ddjoIePEtPjiKaN59K0tOUCeKUBCr8b4dDempckuNxixuF9Fpq1sKrrXyayaqq0zj8EXsptgXA2RMiclLDcDZylVaZhEyEc"),
+    (10,"LAAAB3NzaC1yc2EAAAADAQABAAABgQDuJOASoAgAkrnt3a8cSC7bwBMWN36cfMc4CHZvhYumkHpCtUCuUid1fcGi0iiwcTZcrzhHvWAWe/JxFy+WHwBdWUJ4niirsznYB91T8IKQV/Ir0LE6ZcwUH/UHXQCOCF2bQGR+KKR2y0cTXBEHmtrS4hTuldmq9dG2fx0W1EL6AHwMtTf5/sK5Sx07VDRvVpPEObK+Q4UfVfNzcQpuISN+BevUMGBIMV+uvuw3r34k0ZfvCteAUvzIBMsL5E5xA1uYVjatEo9cb9XpaXvtYa/pWpSiVLamTn4ifft0pyS4dbuiLxoT27ErkIzfo7aVcg7/jCIWB+mN47+KLgyJINMwLOTcTUeACvYQ5QxBrM19MqqKtvN369gqmfWaLODrL/kpq31+/lU9wtKXqKp9fisuNE+Z1lcpDtM2ddjoIePEtPjiKaN59K0tOUCeKUBCr8b4dDempckuNxixuF9Fpq1sKrrXyayaqq0zj8EXsptgXA2RMiclLDcDZylVaZhEyEc")
+
+]
+# cur.executemany("INSERT INTO usuario VALUES(?, ?)", data)
 # con.commit()  # Remember to commit the transaction after executing INSERT.
 
 res = cur.execute("SELECT * FROM usuario")
