@@ -7,9 +7,7 @@ public class DB {
 
       Connection connection = null;
       
-
       try{
-         Class.forName("org.sqlite.date.org.sqlite.date.DateFormatUtils");
          connection = DriverManager.getConnection( "jdbc:sqlite:mydatabase.db" );
          if ( connection != null ){
             System.out.println("Conexión exitosa!");
