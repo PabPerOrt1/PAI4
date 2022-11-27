@@ -11,10 +11,10 @@ public class DB {
 
    public boolean checkConnectionLimit() throws Exception {
 		
-      connect = DriverManager.getConnection( "jdbc:sqlite:mydatabase.db" );
+      connect = DriverManager.getConnection( "jdbc:sqlite:database.db" );
 		
 		statement = connect.createStatement();
-		resultSet = statement.executeQuery("SELECT * FROM mobifirma.pedidos\r\n" + "WHERE hora >= DATE_SUB(NOW(), INTERVAL 4 HOUR)");
+		resultSet = statement.executeQuery("SELECT * FROM DB.valores\r\n" + "WHERE hora >= DATE_SUB(NOW(), INTERVAL 4 HOUR)");
       
 		int counter = 0;
 		while (resultSet.next()) {
@@ -34,10 +34,10 @@ public class DB {
 			java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
 			java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
 
-			connect = DriverManager.getConnection( "jdbc:sqlite:mydatabase.db" );
+			connect = DriverManager.getConnection( "jdbc:sqlite:database.db" );
 
 			preparedStatement = connect
-					.prepareStatement("insert into  mobifirma.pedidos values (default, ?, ?, ?, ? , ?, ?, ?, ?)");
+					.prepareStatement("INSERT INTO DB.valores VALUES (default, ?, ?, ?, ? , ?, ?, ?, ?)");
 
 			preparedStatement.setInt(1, usuario);
 			preparedStatement.setInt(2, mesas);
@@ -58,7 +58,7 @@ public class DB {
 
 	public void generateLog() throws Exception {
 		
-		connect = DriverManager.getConnection( "jdbc:sqlite:mydatabase.db" );
+		connect = DriverManager.getConnection( "jdbc:sqlite:database.db" );
 
 		//VER COMO METER LOS SELECT EN NUESTRA BASE DE DATOS (TODO)
 		//mobifirma es el usuario que usaron los chavales para acceder a la base de datos
@@ -69,20 +69,20 @@ public class DB {
 
 		//TODO
 		resultSet = statement.executeQuery(
-				"SELECT * FROM mobifirma.pedidos\r\n" + "WHERE YEAR(fecha) = YEAR(CURRENT_DATE - INTERVAL 0 MONTH)\r\n"
+				"SELECT * FROM DB.valores\r\n" + "WHERE YEAR(fecha) = YEAR(CURRENT_DATE - INTERVAL 0 MONTH)\r\n"
 						+ "AND MONTH(fecha) = MONTH(CURRENT_DATE - INTERVAL 0 MONTH)");
 		double tact = calculateTrend(resultSet);
 
 		//TODO
 		resultSet = statement.executeQuery(
-				"SELECT * FROM mobifirma.pedidos\r\n" + "WHERE YEAR(fecha) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH)\r\n"
+				"SELECT * FROM DB.valores\r\n" + "WHERE YEAR(fecha) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH)\r\n"
 						+ "AND MONTH(fecha) = MONTH(CURRENT_DATE - INTERVAL 1 MONTH)");
 		double tm1 = calculateTrend(resultSet);
 
 
 		//TODO
 		resultSet = statement.executeQuery(
-				"SELECT * FROM mobifirma.pedidos\r\n" + "WHERE YEAR(fecha) = YEAR(CURRENT_DATE - INTERVAL 2 MONTH)\r\n"
+				"SELECT * FROM DB.valores\r\n" + "WHERE YEAR(fecha) = YEAR(CURRENT_DATE - INTERVAL 2 MONTH)\r\n"
 						+ "AND MONTH(fecha) = MONTH(CURRENT_DATE - INTERVAL 2 MONTH)");
 
 		double tm2 = calculateTrend(resultSet);
@@ -101,7 +101,7 @@ public class DB {
 		}
 
 		//TODO
-		resultSet = statement.executeQuery("SELECT * FROM mobifirma.pedidos ORDER BY id DESC LIMIT 0, 1");
+		resultSet = statement.executeQuery("SELECT * FROM DB.valores ORDER BY id DESC LIMIT 0, 1");
 
 		while (resultSet.next()) {
 			Integer id = resultSet.getInt("ID");
