@@ -120,47 +120,41 @@ public class Server {
 				}
 				byte[] firma = new String(utf8String.toByteArray(), Charset.forName("UTF-8")).getBytes();
 
+                
                 //Para la base de datos
-                /*
-                 // originalSigBytes will be the same as sig
-				BBDDAccess bbdd = new BBDDAccess();
+				DB bbdd = new DB();
 
-				// Verifico que puedo tener m�s conexiones en el d�a
+				// Verifico que puedo tener mas conexiones en la misma hora
 				boolean overload = bbdd.checkConnectionLimit();
-
-				System.out.println("OV: " + overload);
+                
+				System.out.println("¿Ha superado el usuario el numero de conexiones?: " + overload);
 				if (!overload) {
-                } 
-                */
 
-                boolean verified;
-				try {
-					verified = verificaFirmaDigital(values, firma, str_firma);
-				} catch (Exception e) {
-					verified = false;
-				}
+                    boolean verified;
+                    try {
+                        verified = verificaFirmaDigital(values, firma, str_firma);
+                    } catch (Exception e) {
+                        verified = false;
+                    }
 
-                String[] allvalues = values.split(",");
-				Integer camas = Integer.parseInt(allvalues[0]);
-				Integer sillas = Integer.parseInt(allvalues[1]);
-				Integer sillones = Integer.parseInt(allvalues[2]);
-				Integer mesas = Integer.parseInt(allvalues[3]);
-				Integer idUsuario = Integer.parseInt(allvalues[4]);
+                    String[] allvalues = values.split(",");
+                    Integer camas = Integer.parseInt(allvalues[0]);
+                    Integer sillas = Integer.parseInt(allvalues[1]);
+                    Integer sillones = Integer.parseInt(allvalues[2]);
+                    Integer mesas = Integer.parseInt(allvalues[3]);
+                    Integer idUsuario = Integer.parseInt(allvalues[4]);
 
-                System.out.println("Valores: " + values);
-                System.out.println("Firma: " + str_firma);
+                    System.out.println("Valores: " + values);
+                    System.out.println("Firma: " + str_firma);
 
-                /* 
-                bbdd.insertOrder(mesas, sillas, sillones, camas, usuario, verified);
-				bbdd.generateLog();
-                */
+                    
+                    bbdd.insertOrder(mesas, sillas, sillones, camas, idUsuario, verified);
+                    bbdd.generateLog();
+                    
             
-                /*
                 } else {
                     System.out.println("No puede hacer más de 4 peticiones en la misma hora");
                 }
-                 */
-
                 
                 output.close();
 				input.close();
